@@ -6,9 +6,10 @@
     margin-bottom: 10px;
 }
 .glitchInfo {
-    width: 50%;
-    margin-left: 25%;
-    max-width: 300px;
+    width: 86%;
+    max-width: 500px;
+    min-height: 100px;
+    margin: 0px auto 10px auto;
     border: black double;
     display: flex;
 }
@@ -20,6 +21,11 @@
 }
 .glitchInfo > div:first-child {
     border-right: solid black 1px;
+}
+.glitchInfo .sourceInfo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 .glitchInfo .glitchBranding img {
     margin: auto;
