@@ -17,6 +17,10 @@ function shoot() {
     alert("Sold Out");
 }
 
+function currencyFormat(num) {
+   return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
+
 class App extends React.Component {
   constructor(props) {
       super(props);
@@ -94,24 +98,22 @@ class App extends React.Component {
           </tbody>
         </table>
 
-        <h2>Shopping Cart</h2>
+        <h1>Shopping Cart</h1>
         <Container>
-        <Row xs={1} md={2} className="g-4">
+        <Row xs={1} md={3} className="g-4">
             {
               this.state.items.map((item) => {
               return(
                         <Col>
                             <Card>
                                 <Card.Body>
-                                    <Card.Title>
-                                    <h1 className="App-title">{item.itemId}</h1>
-                                    </Card.Title>
+                                    <Card.Title>{item.itemId}</Card.Title>
                                     <Card.Text></Card.Text>
-                                  
                                     <Card.Text><b><h2>{item.name}</h2></b></Card.Text>
-                                    <Card.Text><h3>${item.price}</h3></Card.Text>
+                                    <Card.Text><h3>{currencyFormat(item.price)}</h3></Card.Text>
                                     <Card.Text>PIC  : {item.pic}</Card.Text>
-                                    <Button size="lg" onClick={shoot} variant="dark">Buy Now</Button>{' '}
+                                    <Button onClick={shoot} size="lg" variant="dark">Buy Now</Button>{' '}
+                                    
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -124,6 +126,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 export default App;
