@@ -9,8 +9,13 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+function shoot() {
+    alert("Sold Out");
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -106,6 +111,7 @@ class App extends React.Component {
                                     <Card.Text><b><h2>{item.name}</h2></b></Card.Text>
                                     <Card.Text><h3>${item.price}</h3></Card.Text>
                                     <Card.Text>PIC  : {item.pic}</Card.Text>
+                                    <Button size="lg" onClick={shoot} variant="dark">Buy Now</Button>{' '}
                                 </Card.Body>
                             </Card>
                         </Col>
