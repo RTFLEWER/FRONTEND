@@ -5,10 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "cross-env": "^7.0.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
-    "bootstrap": "^4.6.1"
+    "bootstrap": "^4.6.1",
+    "react-bootstrap": "^2.4.0"
   },
   "scripts": {
     "start": "node -p \"process.env.PROJECT_REMIX_CHAIN || ''\" | grep -E \".+\" && echo \"Starting on Glitch with CI=true...\" && cross-env CI=true react-scripts start || echo \"Starting normal...\" && react-scripts start",
