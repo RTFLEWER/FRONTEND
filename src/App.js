@@ -1,9 +1,7 @@
-/* Demo for FinTech@SG Course 
-Retrieving JSON data from Server in a Tabular form
-Author: Prof Bhojan Anand */
-import React from 'react';
-import stepsLogo from './assets/steps.svg';
-import './App.css';
+import React, {useState} from 'react';
+
+import stepsLogo from "./assets/steps.svg";
+import "./App.css";
 
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
@@ -21,38 +19,29 @@ function currencyFormat(num) {
    return '$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
-class App extends React.Component {
+class Cart extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = { data: [], items:[] };
+    super(props);
+    this.state = { data: [], items:[] };
   }
 
- callAPIServer() {
-  // when component mounted, start a GET request
-  // to specified URL
-  fetch("https://nusstore.glitch.me/cust")
-    // when we get a response map the body to json
-    .then(response => response.json())
-    // and update the state data to said json
-    .then(data => this.setState({ data }));
+  callAPIServer() {
+    // when component mounted, start a GET request
+    // to specified URL
+    fetch("https://nusstore.glitch.me/cust")
+      // when we get a response map the body to json
+      .then((response) => response.json())
+      // and update the state data to said json
+      .then((data) => this.setState({ data }));
+
      fetch("https://nusstore.glitch.me/items")
       .then((response) => response.json())
       .then((items) => this.setState({ items }));
-
-      fetch("https://nusstore.glitch.me/items")
-      .then((response) => response.json())
-      .then((items) => this.setState({ items }));
- }
-
-  componentDidMount() {   // react lifecycle method componentDidMount() 
-                        //will execute the callAPIserver() method after the component mounts.
-      this.callAPIServer();
-      //console.log(this.serverResObjArr);
-
   }
-  /* Replace the table with paragraph below if you need paragraph
-    <p className="App-intro">{JSON.stringify(this.state.data)}</p>
-  */
+
+  componentDidMount() {
+    this.callAPIServer();
+  }
 
   render() {
     return (
@@ -61,6 +50,39 @@ class App extends React.Component {
           <img src={stepsLogo} className="App-logo" alt="logo" />
           <h1 className="App-title">Assignment: Tan Chiang Song Victor</h1>
         </header>
+
+        <h1>Shopping Cart</h1>
+        <Container>
+        <Row xs={1} md={3} className="g-4">
+            {
+              this.state.items.map((item) => {
+              return(
+                        <Col>
+                            <Card>
+                                <Card.Body>
+                                    <Card.Title>{item.itemId}</Card.Title>
+                                    <Card.Text></Card.Text>
+                                    <Card.Text><b><h2>{item.name}</h2></b></Card.Text>
+                                    <Card.Text><h3>{currencyFormat(item.price)}</h3></Card.Text>
+                                    <Card.Text>PIC  : {item.pic}</Card.Text>
+                                    <Button onClick={shoot} size="lg" variant="dark">Buy Now</Button>{' '}
+                                    
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                   );
+                })
+            }
+         </Row>
+       </Container>
+       
+        <div>
+            <Button onClick={event =>  window.location.href='/index.html'} size="lg" variant="dark">Logout</Button>{' '}
+        </div>
+      
+        <br/> <br/> <br/>
+        <h1>EXTRA</h1>
+        <br/> <br/> <br/>
 
         <table className="myTable">
             <thead>
@@ -97,34 +119,60 @@ class App extends React.Component {
             })}
           </tbody>
         </table>
-
-        <h1>Shopping Cart</h1>
-        <Container>
-        <Row xs={1} md={3} className="g-4">
-            {
-              this.state.items.map((item) => {
-              return(
-                        <Col>
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title>{item.itemId}</Card.Title>
-                                    <Card.Text></Card.Text>
-                                    <Card.Text><b><h2>{item.name}</h2></b></Card.Text>
-                                    <Card.Text><h3>{currencyFormat(item.price)}</h3></Card.Text>
-                                    <Card.Text>PIC  : {item.pic}</Card.Text>
-                                    <Button onClick={shoot} size="lg" variant="dark">Buy Now</Button>{' '}
-                                    
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                   );
-                })
-            }
-         </Row>
-       </Container>
     </div>
     );
   }
 }
 
-export default App;
+function Home() {
+  const [isValid, setIsValid] = useState(false);
+  const [user, setUser] = useState('');
+  const [pw, setPw] = useState('');
+  const fetchValidation = async () => {
+    const reqBody = {custId: user, pwd: pw};
+    const data = await fetch(`https://nusstore.glitch.me/login`, {method: 'POST', headers: {'Content-Type':'application/json'}, body:JSON.stringify(reqBody)});
+    const isValid = await data.json();
+    setIsValid(isValid);
+    console.log(isValid);
+  };
+
+  function validate(e){
+    e.preventDefault();
+    fetchValidation();
+  }
+
+  function setUsername(){
+    setUser(document.getElementById("username").value);
+  }
+
+  function setPassword(){
+    setPw(document.getElementById("password").value);
+  }
+
+  if (isValid){
+    //alert("Success");
+    return (
+        <Cart />
+    )
+  }else{ 
+    return (
+      <div>
+          <header className="App-header">
+            <img src={stepsLogo} className="App-logo" alt="logo" />
+            <h1 className="App-title">Assignment: Tan Chiang Song Victor</h1>
+          </header>
+        
+          <div className="wrapper">
+          <p className ="name" >NUS App</p>
+          <form class="p-3 mt-3" onSubmit = {validate}>
+            <input class="form-field d-flex align-items-center" type = "text" id = "username" placeholder="username" onChange = {setUsername}/>
+            <input class="form-field d-flex align-items-center"  type = "password" id = "password" placeholder="password" onChange = {setPassword}/>
+            <input class="btn mt-3" type = "submit" value="Log In"/>
+          </form>
+        </div>
+    </div>
+    )
+  }
+}
+
+export default Home;
