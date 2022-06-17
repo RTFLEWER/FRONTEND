@@ -134,6 +134,8 @@ function Home() {
     const isValid = await data.json();
     setIsValid(isValid);
     console.log(isValid);
+    if (isValid == false)
+      document.getElementById("lblStatus").innerText   = 'Sorry. We Cannot locate User.';
   };
 
   function validate(e){
@@ -169,6 +171,7 @@ function Home() {
             <input class="form-field d-flex align-items-center"  type = "password" id = "password" placeholder="password" onChange = {setPassword}/>
             <input class="btn mt-3" type = "submit" value="Log In"/>
           </form>
+          <label id="lblStatus"> </label>
         </div>
     </div>
     )
