@@ -48,7 +48,7 @@ class Cart extends React.Component {
     <div className="App">
         <header className="App-header">
           <img src={stepsLogo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Assignment: Tan Chiang Song Victor</h1>
+          <h1 className="App-title">Welcome to my App</h1>
         </header>
 
         <h1>Shopping Cart</h1>
@@ -124,58 +124,6 @@ class Cart extends React.Component {
   }
 }
 
-function Home() {
-  const [isValid, setIsValid] = useState(false);
-  const [user, setUser] = useState('');
-  const [pw, setPw] = useState('');
-  const fetchValidation = async () => {
-    const reqBody = {custId: user, pwd: pw};
-    const data = await fetch(`https://nusstore.glitch.me/login`, {method: 'POST', headers: {'Content-Type':'application/json'}, body:JSON.stringify(reqBody)});
-    const isValid = await data.json();
-    setIsValid(isValid);
-    console.log(isValid);
-    if (isValid == false)
-      document.getElementById("lblStatus").innerText   = 'Sorry. We Cannot locate User.';
-  };
 
-  function validate(e){
-    e.preventDefault();
-    fetchValidation();
-  }
 
-  function setUsername(){
-    setUser(document.getElementById("username").value);
-  }
-
-  function setPassword(){
-    setPw(document.getElementById("password").value);
-  }
-
-  if (isValid){
-    //alert("Success");
-    return (
-        <Cart />
-    )
-  }else{ 
-    return (
-      <div>
-          <header className="App-header">
-            <img src={stepsLogo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Assignment: Tan Chiang Song Victor</h1>
-          </header>
-        
-          <div className="wrapper">
-          <p className ="name" >NUS App</p>
-          <form class="p-3 mt-3" onSubmit = {validate}>
-            <input class="form-field d-flex align-items-center" type = "text" id = "username" placeholder="username" onChange = {setUsername}/>
-            <input class="form-field d-flex align-items-center"  type = "password" id = "password" placeholder="password" onChange = {setPassword}/>
-            <input class="btn mt-3" type = "submit" value="Log In"/>
-          </form>
-          <label id="lblStatus"> </label>
-        </div>
-    </div>
-    )
-  }
-}
-
-export default Home;
+export default Cart;
