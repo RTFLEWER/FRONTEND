@@ -47,7 +47,7 @@ class Cart extends React.Component {
   render() {
     return (
     <div>  
-    <a href="#sect1"> Section 1 </a> 
+       <a href="#sect1"> Section 1 </a> 
        <a href="#sect2"> Section 2 </a> 
       
     <div className="App" id="sect1">
