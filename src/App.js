@@ -43,9 +43,14 @@ class Cart extends React.Component {
     this.callAPIServer();
   }
 
+  
   render() {
     return (
-    <div className="App">
+    <div>  
+    <a href="#sect1"> Section 1 </a> 
+       <a href="#sect2"> Section 2 </a> 
+      
+    <div className="App" id="sect1">
         <header className="App-header">
           <img src={stepsLogo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to my App</h1>
@@ -83,7 +88,7 @@ class Cart extends React.Component {
         <br/> <br/> <br/>
         <h1>EXTRA</h1>
         <br/> <br/> <br/>
-
+        <div id ="sect2">
         <table className="myTable">
             <thead>
             <tr><th>CustID</th><th>Password</th><th>Name</th><th>Gender</th></tr>
@@ -101,6 +106,7 @@ class Cart extends React.Component {
             })}
           </tbody>
         </table>
+    </div>
 
         <table className="myTable">
             <thead>
@@ -120,6 +126,7 @@ class Cart extends React.Component {
           </tbody>
         </table>
     </div>
+</div>
     );
   }
 }
