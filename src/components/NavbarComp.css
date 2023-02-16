@@ -1,9 +1,11 @@
 .navbar {
     overflow: hidden;
     background-color: #51b4f5;
-    position: fixed;
+    position: relative;
+    z-index: 2;
     top: 0;
     width: 100%;
+    padding: 0;
   }
 
 .navbar a {
